@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeenLive</name>
+    </assembly>
+    <members>
+        <member name="M:SeenLive.Controllers.BandsController.PostAsync(SeenLive.Resources.BandResourceCreate)">
+            <summary>
+            Creates new Band
+            </summary>
+            <param name="value">JSON with data</param>
+            <returns>HTTP Status</returns>
+        </member>
+    </members>
+</doc>
