@@ -28,6 +28,44 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "FluentValidation/9.3.0-preview2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/FluentValidation.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.dll": {}
+        }
+      },
+      "FluentValidation.AspNetCore/9.3.0-preview2": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "9.3.0-preview2",
+          "FluentValidation.DependencyInjectionExtensions": "9.3.0-preview2"
+        },
+        "compile": {
+          "lib/net5.0/FluentValidation.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/FluentValidation.AspNetCore.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "FluentValidation.DependencyInjectionExtensions/9.3.0-preview2": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "9.3.0-preview2",
+          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Hosting.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1762,6 +1800,54 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
+      ]
+    },
+    "FluentValidation/9.3.0-preview2": {
+      "sha512": "Aa/ZUDoxVAHd+d7plT+kCrDupi7WaE/nHKDiiyICIvEomXC9Urk/5vIpB0WZYZ9lukxetQw44oS/5S+kbU0M/Q==",
+      "type": "package",
+      "path": "fluentvalidation/9.3.0-preview2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluent-validation-icon.png",
+        "fluentvalidation.9.3.0-preview2.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net461/FluentValidation.dll",
+        "lib/net461/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.AspNetCore/9.3.0-preview2": {
+      "sha512": "0G4yiJzzqSotBnywzmdB+MFTSZ4kQPKSYyegt7q9L5GJ9PmuVBiPsJiC4Cn0tz2Uz5Fvkc9MDf3aZGRUfCdfPg==",
+      "type": "package",
+      "path": "fluentvalidation.aspnetcore/9.3.0-preview2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluent-validation-icon.png",
+        "fluentvalidation.aspnetcore.9.3.0-preview2.nupkg.sha512",
+        "fluentvalidation.aspnetcore.nuspec",
+        "lib/net5.0/FluentValidation.AspNetCore.dll",
+        "lib/net5.0/FluentValidation.AspNetCore.xml",
+        "lib/netcoreapp2.1/FluentValidation.AspNetCore.dll",
+        "lib/netcoreapp2.1/FluentValidation.AspNetCore.xml",
+        "lib/netcoreapp3.1/FluentValidation.AspNetCore.dll",
+        "lib/netcoreapp3.1/FluentValidation.AspNetCore.xml"
+      ]
+    },
+    "FluentValidation.DependencyInjectionExtensions/9.3.0-preview2": {
+      "sha512": "2V0mfO0ZktNpsdT8PM2b1WJgeJJ4aIGXz++Th8gfsLdraBF3SSeJCW3XG6ddoq0EdUc3cDSejPqCX9vdk1lZ1w==",
+      "type": "package",
+      "path": "fluentvalidation.dependencyinjectionextensions/9.3.0-preview2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluent-validation-icon.png",
+        "fluentvalidation.dependencyinjectionextensions.9.3.0-preview2.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.nuspec",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "Microsoft.AspNetCore.Hosting.Abstractions/2.2.0": {
@@ -6210,6 +6296,7 @@
     ".NETCoreApp,Version=v5.0": [
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
+      "FluentValidation.AspNetCore >= 9.3.0-preview2",
       "Microsoft.AspNetCore.StaticFiles >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 5.0.0-preview.3.20181.2",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.0-preview.3.20181.2",
@@ -6262,6 +6349,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "FluentValidation.AspNetCore": {
+            "target": "Package",
+            "version": "[9.3.0-preview2, )"
           },
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",

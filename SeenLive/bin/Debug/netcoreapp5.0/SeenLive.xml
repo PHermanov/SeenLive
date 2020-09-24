@@ -8,8 +8,22 @@
             <summary>
             Creates new Band
             </summary>
-            <param name="value">JSON with data</param>
+            <param name="band">JSON with data</param>
             <returns>HTTP Status</returns>
+        </member>
+        <member name="M:SeenLive.Services.Communication.SaveBandResponce.#ctor(SeenLive.Models.Band)">
+            <summary>
+            Creates a success response.
+            </summary>
+            <param name="band">Saved Band.</param>
+            <returns>Response.</returns>
+        </member>
+        <member name="M:SeenLive.Services.Communication.SaveBandResponce.#ctor(System.String)">
+            <summary>
+            Creates am error response.
+            </summary>
+            <param name="message">Error message.</param>
+            <returns>Response.</returns>
         </member>
     </members>
 </doc>

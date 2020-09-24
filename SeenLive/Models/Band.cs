@@ -7,7 +7,8 @@ namespace SeenLive.Models
     {
         public int Id { get; set; }
         
-        [Required]
+        [Required(AllowEmptyStrings = false)]
+        [MaxLength(100)]
         public string Name { get; set; }
         
         public string AlternativeNames { get; set; }

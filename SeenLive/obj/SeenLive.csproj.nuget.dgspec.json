@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[9.3.0-preview2, )"
+            },
             "Microsoft.AspNetCore.StaticFiles": {
               "target": "Package",
               "version": "[2.2.0, )"

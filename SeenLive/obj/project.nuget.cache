@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "j394wX3FVB+7o66AP51jTgsBDZs9PYi+415BpPEQhXSmFqn8A4pmMQiFx8YDuwqzktgLXyWqxpL7pWrXp8tMrA==",
+  "dgSpecHash": "sJjRgGu6cFDUgcvHaGyHxc0QFukzWtPcvaH0B81VVT2Zv/2EVNpJ9bc5pFAKIQvYYgtBNMi7Dz2djKV6I/TyRw==",
   "success": true,
   "projectFilePath": "D:\\Projects\\SeenLive\\SeenLive\\SeenLive.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\germa\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\germa\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\germa\\.nuget\\packages\\fluentvalidation\\9.3.0-preview2\\fluentvalidation.9.3.0-preview2.nupkg.sha512",
+    "C:\\Users\\germa\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.3.0-preview2\\fluentvalidation.aspnetcore.9.3.0-preview2.nupkg.sha512",
+    "C:\\Users\\germa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.3.0-preview2\\fluentvalidation.dependencyinjectionextensions.9.3.0-preview2.nupkg.sha512",
     "C:\\Users\\germa\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\germa\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\germa\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",

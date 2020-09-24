@@ -51,4 +51,7 @@ D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.Swa
 D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Projects\SeenLive\SeenLive\obj\Debug\netcoreapp5.0\SeenLive.MvcApplicationPartsAssemblyInfo.cs
+D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\FluentValidation.dll
+D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\FluentValidation.AspNetCore.dll
+D:\Projects\SeenLive\SeenLive\bin\Debug\netcoreapp5.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Projects\SeenLive\SeenLive\obj\Debug\netcoreapp5.0\SeenLive.csprojAssemblyReference.cache

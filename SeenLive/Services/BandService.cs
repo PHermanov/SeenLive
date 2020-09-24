@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using SeenLive.Models;
-using SeenLive.Repositories;
+using SeenLive.Persistence.Repositories;
+using SeenLive.Persistence.Repositories.Bands;
 using SeenLive.Resources;
+using SeenLive.Services.Communication;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,12 +14,14 @@ namespace SeenLive.Services
         : IBandService
     {
         private readonly IBandRespository _bandRepository;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IValidator _validator;
 
-        public BandService(IBandRespository bandRepository, IMapper mapper)
+        public BandService(IBandRespository bandRepository, IUnitOfWork unitOfWork)
         {
             _bandRepository = bandRepository;
-            _mapper = mapper;
+            _unitOfWork = unitOfWork;
+          //  _validator = validator;
         }
 
         public async Task<Band> FindByIdAsync(int id)
@@ -29,10 +34,20 @@ namespace SeenLive.Services
             return await _bandRepository.FindByIdWithEventsAsync(id);
         }
 
-        public async Task<IEnumerable<BandResourceShort>> ListAsync()
+        public async Task<IEnumerable<Band>> ListAsync()
         {
             var bands = await _bandRepository.ListAsync();
-            return _mapper.Map<IEnumerable<BandResourceShort>>(bands);
+            return bands;
+        }
+
+        public async Task<SaveBandResponce> AddAsync(Band band)
+        {
+          
+
+            await _bandRepository.AddAsync(band);
+            await _unitOfWork.CompleteAsync();
+
+            return new SaveBandResponce(band);
         }
     }
 }
