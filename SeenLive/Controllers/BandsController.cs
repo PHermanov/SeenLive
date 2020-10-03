@@ -44,7 +44,7 @@ namespace SeenLive.Controllers
         /// <summary>
         /// Creates new Band
         /// </summary>
-        /// <param name="band">JSON with data</param>
+        /// <param name="bandBody">JSON with data</param>
         /// <returns>HTTP Status</returns>
 
         [HttpPost]
