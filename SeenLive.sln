@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30028.174
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeenLive", "SeenLive\SeenLive.csproj", "{1D27824D-5E46-4AD3-8579-92448A9BC318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeenLive.Web", "SeenLive.Web\SeenLive.Web.csproj", "{1D27824D-5E46-4AD3-8579-92448A9BC318}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2DF35E2-930C-4499-BCA4-581A568E1068}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeenLive", "SeenLive\SeenLive.csproj", "{335F09F1-79FB-4D46-959A-4EC044E1D1CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{1D27824D-5E46-4AD3-8579-92448A9BC318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D27824D-5E46-4AD3-8579-92448A9BC318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D27824D-5E46-4AD3-8579-92448A9BC318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335F09F1-79FB-4D46-959A-4EC044E1D1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335F09F1-79FB-4D46-959A-4EC044E1D1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335F09F1-79FB-4D46-959A-4EC044E1D1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335F09F1-79FB-4D46-959A-4EC044E1D1CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

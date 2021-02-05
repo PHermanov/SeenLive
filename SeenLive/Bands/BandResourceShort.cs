@@ -1,4 +1,4 @@
-﻿namespace SeenLive.Resources
+﻿namespace SeenLive.Bands
 {
     public class BandResourceShort
     {

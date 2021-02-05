@@ -11,5 +11,9 @@ namespace SeenLive.Persistence.Repositories
         public UnitOfWork(AppDbContext context) => _context = context;
 
         public async Task CompleteAsync() => await _context.SaveChangesAsync();
+
+        public async Task BeginTransactionAsync() => await _context.Database.BeginTransactionAsync();
+
+        public void CommitTransaction() => _context.Database.CommitTransaction();
     }
 }

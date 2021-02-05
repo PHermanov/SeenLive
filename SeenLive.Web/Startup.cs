@@ -11,7 +11,8 @@ using SeenLive.Persistence.Repositories;
 using SeenLive.Persistence.Repositories.Bands;
 using SeenLive.Services;
 using System;
-using FluentValidation.AspNetCore;
+using SeenLive;
+using FluentValidation;
 using SeenLive.Services.Validation;
 
 namespace SeenLive
@@ -28,7 +29,8 @@ namespace SeenLive
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BandValidator>());
+            services.AddControllers();
+            // .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -36,7 +38,6 @@ namespace SeenLive
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IBandRespository, BandRepository>();
-            services.AddScoped<IBandService, BandService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

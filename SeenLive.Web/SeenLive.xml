@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeenLive</name>
+    </assembly>
+    <members>
+        <member name="M:SeenLive.Controllers.BandsController.PostAsync(SeenLive.Resources.BandResourceCreate)">
+            <summary>
+            Creates new Band
+            </summary>
+            <param name="body">JSON with data</param>
+            <returns>HTTP Status</returns>
+        </member>
+        <member name="M:SeenLive.Services.Communication.SaveResponce`1.#ctor(`0)">
+            <summary>
+            Creates a success response.
+            </summary>
+            <param name="entity">Saved entity</param>
+            <returns>Response.</returns>
+        </member>
+        <member name="M:SeenLive.Services.Communication.SaveResponce`1.#ctor(System.Int32,System.String)">
+            <summary>
+            Creates am error response.
+            </summary>
+            <param name="message">Error message</param>
+            <param name="code">Status code</param>
+            <returns>Response.</returns>
+        </member>
+        <member name="M:SeenLive.Services.Communication.SaveResponce`1.#ctor(System.Int32)">
+            <summary>
+            Creates am error response.
+            </summary>
+            <param name="code">Status code</param>
+            <returns>Response.</returns>
+        </member>
+    </members>
+</doc>

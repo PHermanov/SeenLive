@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SeenLive.Models;
+using SeenLive.Bands;
 using SeenLive.Persistence.Contexts;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeenLive.Persistence.Repositories.Bands
@@ -13,19 +14,21 @@ namespace SeenLive.Persistence.Repositories.Bands
             : base(context)
         { }
 
-        public async Task<Band> FindByIdAsync(int id)
+        public async Task<BandEntity> FindByIdAsync(int id)
             => await _context.Bands.FindAsync(id);
 
-        public async Task<Band> FindByIdWithEventsAsync(int id)
+        public async Task<BandEntity> FindByIdWithEventsAsync(int id)
             => await _context.Bands
-                .Include(be => be.BandEvents)
-                .ThenInclude(e => e.Event)
+                .Include(b => b.Events)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
-        public async Task<IEnumerable<Band>> ListAsync()
-           => await _context.Bands.ToListAsync();
+        public async Task<IEnumerable<BandEntity>> ListAsync()
+           => await _context.Bands.OrderBy(b => b.Name).ToListAsync();
 
-        public async Task AddAsync(Band band)
+        public async Task AddAsync(BandEntity band)
             => await _context.Bands.AddAsync(band);
+
+        public void Update(BandEntity band)
+            => _context.Bands.Update(band);
     }
 }

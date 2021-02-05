@@ -1,7 +1,7 @@
 ﻿using SeenLive.Models;
 using System.Collections.Generic;
 
-namespace SeenLive.Resources
+namespace SeenLive.Bands
 {
     public class BandResourceFull
     {

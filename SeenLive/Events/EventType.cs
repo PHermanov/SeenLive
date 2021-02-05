@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SeenLive.Models
+namespace SeenLive.Events
 {
     public enum EventType
         : byte
