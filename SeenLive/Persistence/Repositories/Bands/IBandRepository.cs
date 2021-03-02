@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SeenLive.Persistence.Repositories.Bands
 {
-    public interface IBandRespository
+    public interface IBandRepository
     {
         Task<IEnumerable<BandEntity>> ListAsync();
         Task<BandEntity> FindByIdAsync(int id);

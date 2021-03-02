@@ -1,4 +1,6 @@
-using AutoMapper;
+using System.Reflection;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,16 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SeenLive.Infrastructure;
 using SeenLive.Persistence.Contexts;
 using SeenLive.Persistence.Repositories;
 using SeenLive.Persistence.Repositories.Bands;
-using SeenLive.Services;
-using System;
-using SeenLive;
-using FluentValidation;
-using SeenLive.Services.Validation;
 
-namespace SeenLive
+namespace SeenLive.Web
 {
     public class Startup
     {
@@ -29,17 +27,15 @@ namespace SeenLive
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            // .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
 
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IBandRespository, BandRepository>();
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IBandRepository, BandRepository>();
 
             ////services.AddMvcCore()
             ////    .AddApiExplorer()
@@ -49,6 +45,8 @@ namespace SeenLive
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "SeenLive API" });
             });
+
+            services.AddMediatR(Assembly.GetAssembly(typeof(BaseRepository)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

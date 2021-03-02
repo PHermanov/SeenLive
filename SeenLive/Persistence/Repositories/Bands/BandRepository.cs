@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SeenLive.Persistence.Repositories.Bands
 {
     public class BandRepository
-        : BaseRepository, IBandRespository
+        : BaseRepository, IBandRepository
     {
         public BandRepository(AppDbContext context)
             : base(context)
@@ -18,7 +18,8 @@ namespace SeenLive.Persistence.Repositories.Bands
             => await _context.Bands.FindAsync(id);
 
         public async Task<BandEntity> FindByIdWithEventsAsync(int id)
-            => await _context.Bands
+            => await _context
+                .Bands
                 .Include(b => b.Events)
                 .FirstOrDefaultAsync(b => b.Id == id);
 

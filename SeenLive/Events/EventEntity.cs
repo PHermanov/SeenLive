@@ -16,5 +16,7 @@ namespace SeenLive.Events
         public string Info { get; set; }
         public EventType EventType { get; set; }
         public ICollection<BandEntity> Bands { get; set; }
+        public EventViewModel ToViewModel()
+            => new() { Id = Id, Name = Name, Date = Date };
     }
 }

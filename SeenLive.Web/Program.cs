@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace SeenLive
+namespace SeenLive.Web
 {
     public class Program
     {

@@ -6,7 +6,7 @@ namespace SeenLive.Persistence.Repositories
     {
         protected readonly AppDbContext _context;
 
-        public BaseRepository(AppDbContext context)
+        protected BaseRepository(AppDbContext context)
         {
             _context = context;
         }
