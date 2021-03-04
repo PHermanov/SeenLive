@@ -19,7 +19,12 @@ namespace SeenLive.Bands.GetById
         public async Task<IHandlerResult<BandViewModel>> Handle(GetBandByIdQuery request, CancellationToken cancellationToken)
         {
             var band = await _bandRepository.FindByIdWithEventsAsync(request.Id);
-            return Data(band.ToViewModel());
+
+            return band switch
+            {
+                null => NotFound<BandViewModel>("Band doesn't exist"),
+                _ => Data(band.ToViewModel())
+            };
         }
     }
 }

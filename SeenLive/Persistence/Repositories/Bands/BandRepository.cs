@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace SeenLive.Persistence.Repositories.Bands
 {
     public class BandRepository
-        : BaseRepository, IBandRepository
+        :  IBandRepository
     {
+        private readonly AppDbContext _context;
+
         public BandRepository(AppDbContext context)
-            : base(context)
-        { }
+            => _context = context;
 
         public async Task<BandEntity> FindByIdAsync(int id)
             => await _context.Bands.FindAsync(id);

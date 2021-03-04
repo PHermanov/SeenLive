@@ -31,7 +31,8 @@ namespace SeenLive.Web
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
 
             services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(Configuration["DefaultConnectionString"], 
+                        m => m.MigrationsAssembly("SeenLive.Web")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -46,7 +47,7 @@ namespace SeenLive.Web
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "SeenLive API" });
             });
 
-            services.AddMediatR(Assembly.GetAssembly(typeof(BaseRepository)));
+            services.AddMediatR(Assembly.GetAssembly(typeof(HandlerBase)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,7 +69,7 @@ namespace SeenLive.Web
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -78,8 +79,6 @@ namespace SeenLive.Web
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }

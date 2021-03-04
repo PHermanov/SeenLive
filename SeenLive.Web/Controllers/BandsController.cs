@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SeenLive.Bands;
 using SeenLive.Bands.GetAll;
 using SeenLive.Bands.GetById;
+using SeenLive.Infrastructure;
 
 namespace SeenLive.Web.Controllers
 {
@@ -21,9 +22,9 @@ namespace SeenLive.Web.Controllers
             _mediator = mediator;
         }
 
-       // GET: api/bands
-       [HttpGet]
-       [ProducesResponseType(StatusCodes.Status200OK)]
+        // GET: api/bands
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<BandResourceShort>>> GetAllAsync()
         {
             var response = await _mediator.Send(new GetAllBandsQuery());
@@ -34,10 +35,21 @@ namespace SeenLive.Web.Controllers
         [HttpGet("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<BandViewModel>> FindById([FromRoute] GetBandByIdQuery query)
+        public async Task<ActionResult<IHandlerResult<BandViewModel>>> FindById([FromRoute] GetBandByIdQuery query)
         {
             var response = await _mediator.Send(query);
-            return Ok(response);
+
+            if (response.Error == null)
+            {
+                return Ok(response);
+            }
+
+            return response.Error.Type switch
+            {
+                ErrorType.NotFound => NotFound(),
+                _ => Problem()
+            };
+
         }
 
         // POST api/bands
@@ -58,7 +70,7 @@ namespace SeenLive.Web.Controllers
 
         //    //if (!responce.Success)
         //    //{
-               
+
         //    //}
 
         //    //var createdBandDto = _mapper.Map<BandResourceShort>(responce.Entity);

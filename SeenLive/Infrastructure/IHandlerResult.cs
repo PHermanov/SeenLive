@@ -1,7 +1,8 @@
 ﻿namespace SeenLive.Infrastructure
 {
-    public interface IHandlerResult<T>
+    public interface IHandlerResult<out TData>
     {
-        T Data { get; set; }
+        TData Data { get; }
+        Error Error { get; }
     }
 }
