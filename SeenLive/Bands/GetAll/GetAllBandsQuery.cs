@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System.Collections.Generic;
+using SeenLive.Infrastructure;
 
 namespace SeenLive.Bands.GetAll
 {
     public class GetAllBandsQuery
-        : IRequest<IEnumerable<BandViewModel>>
+        : IRequest<IHandlerResult<IEnumerable<BandViewModel>>>
     {
     }
 }
