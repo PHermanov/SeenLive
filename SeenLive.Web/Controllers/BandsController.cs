@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Bands;
+using SeenLive.Bands.Create;
 using SeenLive.Bands.GetAll;
 using SeenLive.Bands.GetById;
 using SeenLive.Infrastructure;
@@ -25,7 +26,7 @@ namespace SeenLive.Web.Controllers
         // GET: api/bands
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BandResourceShort>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<BandViewModel>>> GetAllAsync()
         {
             var response = await _mediator.Send(new GetAllBandsQuery());
             return Ok(response);
@@ -34,6 +35,7 @@ namespace SeenLive.Web.Controllers
         // GET api/bands/5
         [HttpGet("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IHandlerResult<BandViewModel>>> FindById([FromRoute] GetBandByIdQuery query)
         {
@@ -59,24 +61,14 @@ namespace SeenLive.Web.Controllers
         /// <param name="body">JSON with data</param>
         /// <returns>HTTP Status</returns>
 
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<ActionResult<BandResourceShort>> PostAsync([FromBody] BandResourceCreate body)
-        //{
-        //    //var band = _mapper.Map<Band>(body);
-
-        //    //var responce = await _bandService.AddAsync(band);
-
-        //    //if (!responce.Success)
-        //    //{
-
-        //    //}
-
-        //    //var createdBandDto = _mapper.Map<BandResourceShort>(responce.Entity);
-
-        //    //return CreatedAtAction(nameof(PostAsync), createdBandDto);
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<BandViewModel>> PostAsync([FromBody] CreateBandCommand body)
+        {
+            var response = await _mediator.Send(body);
+            return CreatedAtAction(nameof(FindById), new GetBandByIdQuery { Id = response.Data.Id }, response.Data);
+        }
 
         //// PUT api/bands/5
         //[HttpPut("{id}")]

@@ -4,5 +4,12 @@
         <name>SeenLive.Web</name>
     </assembly>
     <members>
+        <member name="M:SeenLive.Web.Controllers.BandsController.PostAsync(SeenLive.Bands.Create.CreateBandCommand)">
+            <summary>
+            Creates new Band
+            </summary>
+            <param name="body">JSON with data</param>
+            <returns>HTTP Status</returns>
+        </member>
     </members>
 </doc>

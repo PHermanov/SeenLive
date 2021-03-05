@@ -3,6 +3,7 @@ using SeenLive.Bands;
 using SeenLive.Persistence.Contexts;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SeenLive.Persistence.Repositories.Bands
@@ -27,8 +28,13 @@ namespace SeenLive.Persistence.Repositories.Bands
         public async Task<IEnumerable<BandEntity>> ListAsync()
            => await _context.Bands.OrderBy(b => b.Name).ToListAsync();
 
-        public async Task AddAsync(BandEntity band)
-            => await _context.Bands.AddAsync(band);
+        public async Task<BandEntity> AddAsync(BandEntity band, CancellationToken cancellationToken)
+        {
+            await _context.Bands.AddAsync(band, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return band;
+        }
 
         public void Update(BandEntity band)
             => _context.Bands.Update(band);
