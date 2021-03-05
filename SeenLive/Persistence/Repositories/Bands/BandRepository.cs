@@ -38,5 +38,11 @@ namespace SeenLive.Persistence.Repositories.Bands
 
         public void Update(BandEntity band)
             => _context.Bands.Update(band);
+
+        public async Task DeleteAsync(BandEntity band)
+        {
+            _context.Bands.Remove(band);
+            await _context.SaveChangesAsync();
+        }
     }
 }

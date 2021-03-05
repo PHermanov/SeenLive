@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Bands;
 using SeenLive.Bands.Create;
+using SeenLive.Bands.Delete;
 using SeenLive.Bands.GetAll;
 using SeenLive.Bands.GetById;
 using SeenLive.Infrastructure;
@@ -88,9 +89,24 @@ namespace SeenLive.Web.Controllers
         //}
 
         //// DELETE api/bands/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("{Id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> DeleteAsync([FromRoute] DeleteBandCommand command)
+        {
+            var response = await _mediator.Send(command);
+
+            if (response.Error == null)
+            {
+                return NoContent();
+            }
+
+            return response.Error.Type switch
+            {
+                ErrorType.NotFound => NotFound(),
+                _ => Problem()
+            };
+        }
     }
 }
