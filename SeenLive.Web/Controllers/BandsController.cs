@@ -8,6 +8,7 @@ using SeenLive.Bands.Create;
 using SeenLive.Bands.Delete;
 using SeenLive.Bands.GetAll;
 using SeenLive.Bands.GetById;
+using SeenLive.Bands.Update;
 using SeenLive.Infrastructure;
 
 namespace SeenLive.Web.Controllers
@@ -72,21 +73,27 @@ namespace SeenLive.Web.Controllers
         }
 
         //// PUT api/bands/5
-        //[HttpPut("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> Put(int id, [FromBody] BandResourceCreate body)
-        //{
-        //    //throw new NotImplementedException();
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateBandCommand body)
+        {
+            body.Id = id;
 
-        //    //if (id <= 0)
-        //    //{
-        //    //    return BadRequest("Invalid Id");
-        //    //}
+            var response = await _mediator.Send(body);
 
-        //    //var band = _mapper.Map<Band>(body);
-        //}
+            if (response.Error == null)
+            {
+                return CreatedAtAction(nameof(FindById), new GetBandByIdQuery {Id = response.Data.Id}, response.Data);
+            }
+
+            return response.Error.Type switch
+            {
+                ErrorType.NotFound => NotFound(),
+                _ => Problem()
+            };
+        }
 
         //// DELETE api/bands/5
         [HttpDelete("{Id}")]

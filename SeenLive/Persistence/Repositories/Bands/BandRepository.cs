@@ -36,8 +36,11 @@ namespace SeenLive.Persistence.Repositories.Bands
             return band;
         }
 
-        public void Update(BandEntity band)
-            => _context.Bands.Update(band);
+        public async Task<BandEntity> UpdateAsync(int id, BandEntity updatedBand)
+        {
+            var band = await FindByIdAsync(updatedBand.Id);
+        }
+            
 
         public async Task DeleteAsync(BandEntity band)
         {
