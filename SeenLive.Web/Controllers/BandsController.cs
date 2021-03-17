@@ -53,7 +53,6 @@ namespace SeenLive.Web.Controllers
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()
             };
-
         }
 
         // POST api/bands
@@ -62,7 +61,6 @@ namespace SeenLive.Web.Controllers
         /// </summary>
         /// <param name="body">JSON with data</param>
         /// <returns>HTTP Status</returns>
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +75,7 @@ namespace SeenLive.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateBandCommand body)
+        public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] UpdateBandCommand body)
         {
             body.Id = id;
 

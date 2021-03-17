@@ -17,8 +17,5 @@ namespace SeenLive.Bands
 
         [JsonPropertyName("info")]
         public string Info { get; set; }
-
-        [JsonPropertyName("events")]
-        public IEnumerable<EventViewModel> Events { get; set; }
     }
 }

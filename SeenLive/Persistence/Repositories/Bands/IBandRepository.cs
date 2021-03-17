@@ -11,7 +11,7 @@ namespace SeenLive.Persistence.Repositories.Bands
         Task<BandEntity> FindByIdAsync(int id);
         Task<BandEntity> FindByIdWithEventsAsync(int id);
         Task<BandEntity> AddAsync(BandEntity band, CancellationToken cancellationToken);
-        Task<BandEntity> UpdateAsync(BandEntity band);
+        Task<BandEntity> UpdateAsync(BandEntity band, BandEntity updatedBand, CancellationToken cancellationToken);
         Task DeleteAsync(BandEntity band);
     }
 }

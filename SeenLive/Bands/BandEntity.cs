@@ -22,8 +22,7 @@ namespace SeenLive.Bands
                Id = Id,
                Name = Name,
                AlternativeNames = AlternativeNames,
-               Info = Info,
-               Events = Events?.Select(e => e.ToViewModel())
+               Info = Info
            };
     }
 }
