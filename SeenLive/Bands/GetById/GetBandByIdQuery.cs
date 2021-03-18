@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using SeenLive.Infrastructure;
+using SeenLive.Infrastructure.Common;
 
 namespace SeenLive.Bands.GetById
 {
     public class GetBandByIdQuery
-        : IRequest<IHandlerResult<BandViewModel>>
+        : GetByIdQuery, IRequest<IHandlerResult<BandViewModel>>
     {
-        public int Id { get; set; }
+        
     }
 }
