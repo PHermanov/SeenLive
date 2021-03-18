@@ -1,26 +1,26 @@
 ﻿using MediatR;
 using SeenLive.Infrastructure;
-using SeenLive.Persistence.Repositories.Bands;
 using System.Threading;
 using System.Threading.Tasks;
+using SeenLive.EfCore.Contexts;
 
 namespace SeenLive.Bands.Create
 {
     public class CreateBandCommandHandler
         : HandlerBase, IRequestHandler<CreateBandCommand, IHandlerResult<BandViewModel>>
     {
-        private readonly IBandRepository _bandRepository;
+        private readonly AppDbContext _context;
 
-        public CreateBandCommandHandler(IBandRepository bandRepository)
-        {
-            _bandRepository = bandRepository;
-        }
-
+        public CreateBandCommandHandler(AppDbContext context)
+            => _context = context;
+        
         public async Task<IHandlerResult<BandViewModel>> Handle(CreateBandCommand request, CancellationToken cancellationToken)
         {
-            var band = await _bandRepository.AddAsync(request.ToEntity(), cancellationToken);
-
-            return Data(band.ToViewModel());
+           var band = await _context.Bands.AddAsync(request.ToEntity(), cancellationToken);
+           
+           await _context.SaveChangesAsync(cancellationToken);
+          
+           return Data(band.Entity.ToViewModel());
         }
     }
 }

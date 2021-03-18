@@ -1,32 +1,35 @@
 ﻿using MediatR;
 using SeenLive.Infrastructure;
-using SeenLive.Persistence.Repositories.Bands;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SeenLive.EfCore.Contexts;
 
 namespace SeenLive.Bands.Delete
 {
     public class DeleteBandCommandHandler
     : HandlerBase, IRequestHandler<DeleteBandCommand, IHandlerResult<Unit>>
     {
-        private readonly IBandRepository _bandRepository;
+        private readonly AppDbContext _context;
 
-        public DeleteBandCommandHandler(IBandRepository bandRepository)
-        {
-            _bandRepository = bandRepository;
-        }
+        public DeleteBandCommandHandler(AppDbContext context)
+            => _context = context;
 
         public async Task<IHandlerResult<Unit>> Handle(DeleteBandCommand request, CancellationToken cancellationToken)
         {
-            var bandEntity = await _bandRepository.FindByIdAsync(request.Id);
-
-            if (bandEntity == null)
+            var band = await _context
+                .Bands
+                .AsNoTracking()
+                .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
+            
+            if (band == null)
             {
                 return NotFound<Unit>("Band was not found");
             }
 
-            await _bandRepository.DeleteAsync(bandEntity);
-
+            _context.Bands.Remove(band);
+            await _context.SaveChangesAsync(cancellationToken);
+            
             return NoData();
         }
     }

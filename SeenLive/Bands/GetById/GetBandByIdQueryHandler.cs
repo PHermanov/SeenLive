@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using SeenLive.Persistence.Repositories.Bands;
 using System.Threading;
 using System.Threading.Tasks;
+using SeenLive.EfCore.Contexts;
 using SeenLive.Infrastructure;
 
 namespace SeenLive.Bands.GetById
@@ -9,16 +9,13 @@ namespace SeenLive.Bands.GetById
     public class GetBandByIdQueryHandler
         : HandlerBase, IRequestHandler<GetBandByIdQuery, IHandlerResult<BandViewModel>>
     {
-        private readonly IBandRepository _bandRepository;
-
-        public GetBandByIdQueryHandler(IBandRepository bandRepository)
-        {
-            _bandRepository = bandRepository;
-        }
+        private readonly AppDbContext _context;
+        public GetBandByIdQueryHandler(AppDbContext context)
+            => _context = context;
 
         public async Task<IHandlerResult<BandViewModel>> Handle(GetBandByIdQuery request, CancellationToken cancellationToken)
         {
-            var band = await _bandRepository.FindByIdWithEventsAsync(request.Id);
+            var band = await _context.Bands.FindAsync(request.Id);
 
             return band switch
             {

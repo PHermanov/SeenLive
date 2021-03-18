@@ -8,10 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SeenLive.EfCore.Contexts;
 using SeenLive.Infrastructure;
-using SeenLive.Persistence.Contexts;
-using SeenLive.Persistence.Repositories;
-using SeenLive.Persistence.Repositories.Bands;
 
 namespace SeenLive.Web
 {
@@ -33,10 +31,6 @@ namespace SeenLive.Web
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration["DefaultConnectionString"], 
                         m => m.MigrationsAssembly("SeenLive.Web")));
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddScoped<IBandRepository, BandRepository>();
 
             ////services.AddMvcCore()
             ////    .AddApiExplorer()

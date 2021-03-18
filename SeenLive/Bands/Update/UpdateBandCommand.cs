@@ -11,6 +11,6 @@ namespace SeenLive.Bands.Update
         public string AlternativeNames { get; set; }
         public string Info { get; set; }
 
-        public BandEntity ToEntity() => new() { Name = Name.Trim(), AlternativeNames = AlternativeNames, Info = Info };
+        public BandEntity ToEntity() => new() { Id = Id, Name = Name.Trim(), AlternativeNames = AlternativeNames, Info = Info };
     }
 }
