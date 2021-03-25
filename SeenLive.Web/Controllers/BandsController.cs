@@ -9,6 +9,8 @@ using SeenLive.Bands.Delete;
 using SeenLive.Bands.GetAll;
 using SeenLive.Bands.GetById;
 using SeenLive.Bands.Update;
+using SeenLive.Events;
+using SeenLive.Events.GetByBandId;
 using SeenLive.Infrastructure;
 
 namespace SeenLive.Web.Controllers
@@ -28,7 +30,7 @@ namespace SeenLive.Web.Controllers
         // GET: api/bands
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<BandViewModel>>> GetAllAsync()
+        public async Task<ActionResult<IHandlerResult<IEnumerable<BandViewModel>>>> GetAllAsync()
         {
             var response = await _mediator.Send(new GetAllBandsQuery());
             return Ok(response);
@@ -64,7 +66,7 @@ namespace SeenLive.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BandViewModel>> PostAsync([FromBody] CreateBandCommand body)
+        public async Task<ActionResult<IHandlerResult<BandViewModel>>> PostAsync([FromBody] CreateBandCommand body)
         {
             var response = await _mediator.Send(body);
             return CreatedAtAction(nameof(FindById), new GetBandByIdQuery { Id = response.Data.Id }, response.Data);
@@ -75,7 +77,7 @@ namespace SeenLive.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutAsync([FromRoute] int id, [FromBody] UpdateBandCommand body)
+        public async Task<ActionResult<IHandlerResult<BandViewModel>>> PutAsync([FromRoute] int id, [FromBody] UpdateBandCommand body)
         {
             body.Id = id;
 
@@ -113,5 +115,23 @@ namespace SeenLive.Web.Controllers
                 _ => Problem()
             };
         }
+
+        [HttpGet("{Id}/Events")]
+        public async Task<ActionResult<IHandlerResult<IEnumerable<EventViewModel>>>> GetBandEvents([FromRoute] GetEventByBandIdQuery query)
+        {
+            var response = await _mediator.Send(query);
+
+            if (response.Error == null)
+            {
+                return Ok(response);
+            }
+            
+            return response.Error.Type switch
+            {
+                ErrorType.NotFound => NotFound(),
+                _ => Problem()
+            };
+        }
+        
     }
 }
