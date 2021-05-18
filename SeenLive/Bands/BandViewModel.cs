@@ -1,21 +1,19 @@
-﻿using SeenLive.Events;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace SeenLive.Bands
 {
     public class BandViewModel
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         [JsonPropertyName("alternativeNames")]
-        public string AlternativeNames { get; set; }
+        public string AlternativeNames { get; init; }
 
         [JsonPropertyName("info")]
-        public string Info { get; set; }
+        public string Info { get; init; }
     }
 }

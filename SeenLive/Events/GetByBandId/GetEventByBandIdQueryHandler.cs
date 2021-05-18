@@ -20,8 +20,8 @@ namespace SeenLive.Events.GetByBandId
         {
             var band = await _context
                 .Bands
-                .AsNoTracking()
                 .Include(b => b.Events)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
             
             return band == null 

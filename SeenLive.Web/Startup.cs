@@ -20,7 +20,7 @@ namespace SeenLive.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -28,13 +28,11 @@ namespace SeenLive.Web
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
 
+            // Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SeenLiveDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration["DefaultConnectionString"], 
                         m => m.MigrationsAssembly("SeenLive.Web")));
-
-            ////services.AddMvcCore()
-            ////    .AddApiExplorer()
-            ////    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<>());
 
             services.AddSwaggerGen(swagger =>
             {
