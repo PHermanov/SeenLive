@@ -5,9 +5,11 @@ namespace SeenLive.Events
     public enum EventType
         : byte
     {
+        [Description("Other")]
+        Other,
         [Description("Festival")]
         Festival,
-        [Description("Solo event")]
+        [Description("Solo")]
         Solo
     }
 }

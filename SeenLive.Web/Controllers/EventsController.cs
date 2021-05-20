@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Events;
+using SeenLive.Events.Create;
 using SeenLive.Events.GetAll;
 using SeenLive.Events.GetById;
 using SeenLive.Infrastructure;
@@ -50,6 +51,21 @@ namespace SeenLive.Api.Controllers
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()
             };
+        }
+
+        // POST api/events
+        /// <summary>
+        /// Creates new Event
+        /// </summary>
+        /// <param name="body">JSON with data</param>
+        /// <returns>HTTP Status</returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<EventViewModel>> PostAsync([FromBody] CreateEventCommand body)
+        {
+            var response = await _mediator.Send(body);
+            return CreatedAtAction(nameof(FindById), new GetEventByIdQuery { Id = response.Data.Id }, response.Data);
         }
     }
 }

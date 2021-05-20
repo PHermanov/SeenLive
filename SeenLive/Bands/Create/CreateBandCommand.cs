@@ -10,11 +10,12 @@ namespace SeenLive.Bands.Create
         public string? AlternativeNames { get; init; }
         public string? Info { get; init; }
 
-        public BandEntity ToEntity() => new()
-        {
-            Name = Name.Trim(), 
-            AlternativeNames = AlternativeNames, 
-            Info = Info
-        };
+        public BandEntity ToEntity()
+            => new()
+            {
+                Name = Name.Trim(),
+                AlternativeNames = AlternativeNames,
+                Info = Info
+            };
     }
 }
