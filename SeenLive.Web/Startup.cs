@@ -11,7 +11,7 @@ using Microsoft.OpenApi.Models;
 using SeenLive.EfCore.Contexts;
 using SeenLive.Infrastructure;
 
-namespace SeenLive.Web
+namespace SeenLive.Api
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace SeenLive.Web
 
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration["DefaultConnectionString"], 
-                        m => m.MigrationsAssembly("SeenLive.Web")));
+                        m => m.MigrationsAssembly("SeenLive.Api")));
 
             services.AddSwaggerGen(swagger =>
             {

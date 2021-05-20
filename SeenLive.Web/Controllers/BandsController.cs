@@ -13,7 +13,7 @@ using SeenLive.Events;
 using SeenLive.Events.GetByBandId;
 using SeenLive.Infrastructure;
 
-namespace SeenLive.Web.Controllers
+namespace SeenLive.Api.Controllers
 {
     [Route("api/bands")]
     [ApiController]

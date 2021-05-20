@@ -1,14 +1,14 @@
-﻿using MediatR;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Events;
 using SeenLive.Events.GetAll;
 using SeenLive.Events.GetById;
 using SeenLive.Infrastructure;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace SeenLive.Web.Controllers
+namespace SeenLive.Api.Controllers
 {
     [Route("api/events")]
     [ApiController]
