@@ -4,9 +4,9 @@ namespace SeenLive.Infrastructure
 {
     public class SuccessResult<TData> : IHandlerResult<TData>
     {
-        public TData Data { get; init; }
-        
+        public TData Data { get; init; } = default!;
+
         [JsonIgnore]
-        public Error Error => null;
+        public Error? Error => default;
     }
 }

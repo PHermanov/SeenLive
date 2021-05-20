@@ -8,12 +8,12 @@ namespace SeenLive.Bands
         public int Id { get; init; }
 
         [JsonPropertyName("name")]
-        public string Name { get; init; }
+        public string? Name { get; init; }
 
         [JsonPropertyName("alternativeNames")]
-        public string AlternativeNames { get; init; }
+        public string? AlternativeNames { get; init; }
 
         [JsonPropertyName("info")]
-        public string Info { get; init; }
+        public string? Info { get; init; }
     }
 }

@@ -7,9 +7,9 @@ namespace SeenLive.Bands.Update
        : IRequest<IHandlerResult<BandViewModel>>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string AlternativeNames { get; set; }
-        public string Info { get; set; }
+        public string Name { get; init; } = string.Empty;
+        public string? AlternativeNames { get; init; }
+        public string? Info { get; init; }
 
         public BandEntity ToEntity() => new() { Id = Id, Name = Name.Trim(), AlternativeNames = AlternativeNames, Info = Info };
     }

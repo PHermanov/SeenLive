@@ -2,8 +2,8 @@
 {
     public class Error
     {
-        public string Message { get; set; }
-        public ErrorType Type { get; set; }
+        public string Message { get; init; } = string.Empty;
+        public ErrorType Type { get; init; } = ErrorType.Undefined;
     }
 
     public enum ErrorType

@@ -9,7 +9,7 @@ namespace SeenLive.Events
         public int Id { get; init; }
 
         [JsonPropertyName("name")]
-        public string Name { get; init; }
+        public string Name { get; init; } = string.Empty;
 
         [JsonPropertyName("date")]
         public DateTime Date { get; init; }

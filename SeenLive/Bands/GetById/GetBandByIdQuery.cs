@@ -7,6 +7,5 @@ namespace SeenLive.Bands.GetById
     public class GetBandByIdQuery
         : GetByIdQuery, IRequest<IHandlerResult<BandViewModel>>
     {
-        
     }
 }

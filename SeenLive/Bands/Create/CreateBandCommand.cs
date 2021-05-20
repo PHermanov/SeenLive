@@ -6,9 +6,9 @@ namespace SeenLive.Bands.Create
     public class CreateBandCommand
         : IRequest<IHandlerResult<BandViewModel>>
     {
-        public string Name { get; set; }
-        public string AlternativeNames { get; set; }
-        public string Info { get; set; }
+        public string Name { get; init; } = string.Empty;
+        public string? AlternativeNames { get; init; }
+        public string? Info { get; init; }
 
         public BandEntity ToEntity() => new()
         {

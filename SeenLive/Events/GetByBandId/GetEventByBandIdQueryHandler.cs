@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,10 +24,12 @@ namespace SeenLive.Events.GetByBandId
                 .Include(b => b.Events)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
-            
-            return band == null 
-                ? NotFound<IEnumerable<EventViewModel>>("Band was not found") 
-                : Data(band.Events.Select(e => e.ToViewModel()));
+
+            return band == null
+                ? NotFound<IEnumerable<EventViewModel>>("Band was not found")
+                : Data(band.Events == null 
+                    ? Array.Empty<EventViewModel>() 
+                    : band.Events.Select(e => e.ToViewModel()));
         }
     }
 }

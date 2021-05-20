@@ -45,12 +45,12 @@ namespace SeenLive.Web.Controllers
         {
             var response = await _mediator.Send(query);
 
-            if (response.Error == null)
+            if (response.Success)
             {
                 return Ok(response);
             }
 
-            return response.Error.Type switch
+            return response.Error!.Type switch
             {
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()
@@ -83,12 +83,12 @@ namespace SeenLive.Web.Controllers
 
             var response = await _mediator.Send(body);
 
-            if (response.Error == null)
+            if (response.Success)
             {
                 return CreatedAtAction(nameof(FindById), new GetBandByIdQuery {Id = response.Data.Id}, response.Data);
             }
 
-            return response.Error.Type switch
+            return response.Error!.Type switch
             {
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()
@@ -104,12 +104,12 @@ namespace SeenLive.Web.Controllers
         {
             var response = await _mediator.Send(command);
 
-            if (response.Error == null)
+            if (response.Success)
             {
                 return NoContent();
             }
 
-            return response.Error.Type switch
+            return response.Error!.Type switch
             {
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()
@@ -121,12 +121,12 @@ namespace SeenLive.Web.Controllers
         {
             var response = await _mediator.Send(query);
 
-            if (response.Error == null)
+            if (response.Success)
             {
                 return Ok(response);
             }
             
-            return response.Error.Type switch
+            return response.Error!.Type switch
             {
                 ErrorType.NotFound => NotFound(),
                 _ => Problem()

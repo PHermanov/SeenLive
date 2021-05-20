@@ -11,11 +11,12 @@ namespace SeenLive.Events
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public DateTime Date { get; set; }
-        public string Info { get; set; }
+        public string? Info { get; set; } = string.Empty;
         public EventType EventType { get; set; }
-        public ICollection<BandEntity> Bands { get; set; }
+        public ICollection<BandEntity>? Bands { get; set; }
+
         public EventViewModel ToViewModel()
             => new() { Id = Id, Name = Name, Date = Date };
     }
