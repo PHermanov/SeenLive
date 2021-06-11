@@ -18,7 +18,7 @@ namespace SeenLive.Api.Controllers
     [Route("api/bands")]
     [ApiController]
     public class BandsController
-        : ControllerBase
+        : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -45,16 +45,9 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(query);
 
-            if (response.Success)
-            {
-                return Ok(response);
-            }
-
-            return response.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(),
-                _ => Problem()
-            };
+            return response.Success 
+                ? Ok(response) 
+                : ProcessError(response.Error!);
         }
 
         // POST api/bands
@@ -83,16 +76,9 @@ namespace SeenLive.Api.Controllers
 
             var response = await _mediator.Send(body);
 
-            if (response.Success)
-            {
-                return CreatedAtAction(nameof(FindById), new GetBandByIdQuery {Id = response.Data.Id}, response.Data);
-            }
-
-            return response.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(),
-                _ => Problem()
-            };
+            return response.Success 
+                ? CreatedAtAction(nameof(FindById), new GetBandByIdQuery { Id = response.Data.Id }, response.Data) 
+                : ProcessError(response.Error!);
         }
 
         //// DELETE api/bands/5
@@ -104,16 +90,9 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(command);
 
-            if (response.Success)
-            {
-                return NoContent();
-            }
-
-            return response.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(),
-                _ => Problem()
-            };
+            return response.Success 
+                ? NoContent() 
+                : ProcessError(response.Error!);
         }
 
         [HttpGet("{Id}/Events")]
@@ -121,17 +100,9 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(query);
 
-            if (response.Success)
-            {
-                return Ok(response);
-            }
-            
-            return response.Error!.Type switch
-            {
-                ErrorType.NotFound => NotFound(),
-                _ => Problem()
-            };
+            return response.Success 
+                ? Ok(response) 
+                : ProcessError(response.Error!);
         }
-        
     }
 }
