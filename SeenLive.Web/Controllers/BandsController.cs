@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Bands;
@@ -15,8 +16,10 @@ using SeenLive.Infrastructure;
 
 namespace SeenLive.Api.Controllers
 {
+    [Authorize]
     [Route("api/bands")]
     [ApiController]
+    
     public class BandsController
         : BaseController
     {
