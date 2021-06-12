@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace SeenLive.Users
 {
-    public class User
+    public class User : IdentityUser
     {
         
     }
