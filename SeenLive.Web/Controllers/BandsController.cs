@@ -96,6 +96,9 @@ namespace SeenLive.Api.Controllers
         }
 
         [HttpGet("{Id}/Events")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<EventViewModel>>> GetBandEvents([FromRoute] GetEventByBandIdQuery query)
         {
             var response = await _mediator.Send(query);
