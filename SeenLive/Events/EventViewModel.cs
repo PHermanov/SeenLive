@@ -14,7 +14,7 @@ namespace SeenLive.Events
         [JsonPropertyName("date")]
         public DateTime Date { get; init; }
 
-        [JsonPropertyName("type")]
-        public string EventType { get; init; }
+        [JsonPropertyName("type")] 
+        public string EventType { get; init; } = string.Empty;
     }
 }

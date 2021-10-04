@@ -12,6 +12,7 @@ namespace SeenLive.Events.Create
             RuleFor(e => e.Name).MaximumLength(100).WithMessage("Name is too long, limit is 100");
             RuleFor(e => e.Date).NotEmpty().WithMessage("Event date is required");
             RuleFor(e => e.Date).GreaterThan(new DateTime(1900, 1, 1)).WithMessage("Time travelers are not welcome");
+            RuleFor(e => e.EventType).NotEmpty().WithMessage("Event type is required");
             RuleFor(e => e.EventType).IsEnumName(typeof(EventType), false).WithMessage("Provide a valid EventType");
         }
     }

@@ -14,7 +14,7 @@ namespace SeenLive.Api.Controllers
     [Route("api/events")]
     [ApiController]
     public class EventsController
-        : ControllerBase
+        : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -41,16 +41,9 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(query);
 
-            if (response.Error == null)
-            {
-                return Ok(response);
-            }
-
-            return response.Error.Type switch
-            {
-                ErrorType.NotFound => NotFound(),
-                _ => Problem()
-            };
+            return response.Success
+                ? Ok(response)
+                : ProcessError(response.Error!);
         }
 
         // POST api/events

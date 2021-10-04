@@ -94,7 +94,7 @@ namespace SeenLive.Api
                 c.RoutePrefix = string.Empty;
             });
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
