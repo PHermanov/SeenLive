@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using SeenLive.Bands;
 using SeenLive.Events;
 using SeenLive.Users;
@@ -13,7 +12,7 @@ namespace SeenLive.EfCore.Contexts
         public DbSet<BandEntity> Bands { get; set; }
         public DbSet<EventEntity> Events { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public new DbSet<User> Users { get; set; }
         
         public AppDbContext(DbContextOptions<AppDbContext> options) 
             : base(options)
@@ -22,7 +21,6 @@ namespace SeenLive.EfCore.Contexts
 
         public AppDbContext()
         {
-            
         }
         
         protected override void OnModelCreating(ModelBuilder builder)  

@@ -7,7 +7,6 @@ using SeenLive.Events;
 using SeenLive.Events.Create;
 using SeenLive.Events.GetAll;
 using SeenLive.Events.GetById;
-using SeenLive.Infrastructure;
 
 namespace SeenLive.Api.Controllers
 {
