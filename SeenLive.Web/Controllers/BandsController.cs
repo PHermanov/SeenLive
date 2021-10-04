@@ -12,7 +12,6 @@ using SeenLive.Bands.GetById;
 using SeenLive.Bands.Update;
 using SeenLive.Events;
 using SeenLive.Events.GetByBandId;
-using SeenLive.Infrastructure;
 
 namespace SeenLive.Api.Controllers
 {
@@ -33,6 +32,7 @@ namespace SeenLive.Api.Controllers
         // GET: api/bands
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<BandViewModel>>> GetAllAsync()
         {
             var response = await _mediator.Send(new GetAllBandsQuery());
@@ -43,6 +43,7 @@ namespace SeenLive.Api.Controllers
         [HttpGet("{Id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<BandViewModel>> FindById([FromRoute] GetBandByIdQuery query)
         {
@@ -62,6 +63,7 @@ namespace SeenLive.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<BandViewModel>> PostAsync([FromBody] CreateBandCommand body)
         {
             var response = await _mediator.Send(body);
@@ -72,6 +74,7 @@ namespace SeenLive.Api.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<BandViewModel>> PutAsync([FromRoute] int id, [FromBody] UpdateBandCommand body)
         {
@@ -88,6 +91,7 @@ namespace SeenLive.Api.Controllers
         [HttpDelete("{Id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteAsync([FromRoute] DeleteBandCommand command)
         {
@@ -101,6 +105,7 @@ namespace SeenLive.Api.Controllers
         [HttpGet("{Id}/Events")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<EventViewModel>>> GetBandEvents([FromRoute] GetEventByBandIdQuery query)
         {
