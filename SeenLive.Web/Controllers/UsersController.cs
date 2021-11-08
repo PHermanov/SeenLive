@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -97,7 +98,7 @@ namespace SeenLive.Api.Controllers
 
             if (!result.Succeeded)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+                return StatusCode(StatusCodes.Status500InternalServerError, result.Errors.FirstOrDefault()?.Description);
             }
 
             return Ok("User created successfully!");
