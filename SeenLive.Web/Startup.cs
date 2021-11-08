@@ -83,11 +83,11 @@ namespace SeenLive.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            // Swagger
             app.UseSwagger(c =>
             {
                 c.RouteTemplate = "SeenLive/swagger/{documentName}/swagger.json";
             });
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/SeenLive/swagger/v1/swagger.json", "SeenLive API");

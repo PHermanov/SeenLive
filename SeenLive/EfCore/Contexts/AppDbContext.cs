@@ -9,10 +9,9 @@ namespace SeenLive.EfCore.Contexts
     public class AppDbContext
         : IdentityDbContext<User>
     {
-        public DbSet<BandEntity> Bands { get; set; }
-        public DbSet<EventEntity> Events { get; set; }
-
-        public new DbSet<User> Users { get; set; }
+        public DbSet<BandEntity> Bands => Set<BandEntity>();
+        public DbSet<EventEntity> Events => Set<EventEntity>();
+        public new DbSet<User> Users  => Set<User>();
         
         public AppDbContext(DbContextOptions<AppDbContext> options) 
             : base(options)

@@ -48,7 +48,7 @@ namespace SeenLive.Api.Controllers
         public async Task<ActionResult<BandViewModel>> FindById([FromRoute] GetBandByIdQuery query)
         {
             var response = await _mediator.Send(query);
-
+            
             return response.Success 
                 ? Ok(response) 
                 : ProcessError(response.Error!);
