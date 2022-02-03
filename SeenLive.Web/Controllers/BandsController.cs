@@ -27,9 +27,7 @@ namespace SeenLive.Api.Controllers
 
         public BandsController(IMediator mediator, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
             : base(userManager, httpContextAccessor)
-        {
-            _mediator = mediator;
-        }
+                => _mediator = mediator;
 
         // GET: api/bands
         [HttpGet]

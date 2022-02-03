@@ -2,7 +2,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SeenLive.Users;
 using SeenLive.Users.Create;
 using SeenLive.Users.Login;
 
@@ -15,8 +17,9 @@ public class AuthenticateController
 {
     private readonly IMediator _mediator;
 
-    public AuthenticateController(IMediator mediator)
-        => _mediator = mediator;
+    public AuthenticateController(IMediator mediator, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        : base(userManager, httpContextAccessor)
+            => _mediator = mediator;
 
     [HttpPost]
     [Route("login")]

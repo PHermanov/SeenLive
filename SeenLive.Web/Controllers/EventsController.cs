@@ -21,9 +21,8 @@ public class EventsController
 
     public EventsController(IMediator mediator, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         : base(userManager, httpContextAccessor)
-    {
-        _mediator = mediator;
-    }
+            => _mediator = mediator;
+    
 
     // GET: api/events
     [HttpGet]
