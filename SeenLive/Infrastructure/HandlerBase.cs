@@ -12,5 +12,14 @@ namespace SeenLive.Infrastructure
 
         protected static IHandlerResult<TData> NotFound<TData>(string message)
             => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.NotFound } };
+
+        protected static IHandlerResult<TData> Unauthorized<TData>(string message)
+            => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.Unauthorized } };
+
+        protected static IHandlerResult<TData> BadRequest<TData>(string message)
+            => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.BadRequest } };
+
+        protected static IHandlerResult<TData> InternalError<TData>(string message)
+            => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.InternalError } };
     }
 }

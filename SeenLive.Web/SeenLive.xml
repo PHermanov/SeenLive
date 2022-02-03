@@ -20,7 +20,7 @@
         </member>
         <member name="M:SeenLive.Services.Communication.SaveResponce`1.#ctor(System.Int32,System.String)">
             <summary>
-            Creates am error response.
+            Creates an error response.
             </summary>
             <param name="message">Error message</param>
             <param name="code">Status code</param>
@@ -28,7 +28,7 @@
         </member>
         <member name="M:SeenLive.Services.Communication.SaveResponce`1.#ctor(System.Int32)">
             <summary>
-            Creates am error response.
+            Creates an error response.
             </summary>
             <param name="code">Status code</param>
             <returns>Response.</returns>
