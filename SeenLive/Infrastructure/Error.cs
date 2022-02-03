@@ -9,6 +9,9 @@
     public enum ErrorType
     {
         Undefined,
-        NotFound
+        NotFound,
+        Unauthorized,
+        BadRequest,
+        InternalError
     }
 }

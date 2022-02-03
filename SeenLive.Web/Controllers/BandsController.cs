@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Bands;
 using SeenLive.Bands.Create;
@@ -12,19 +13,20 @@ using SeenLive.Bands.GetById;
 using SeenLive.Bands.Update;
 using SeenLive.Events;
 using SeenLive.Events.GetByBandId;
+using SeenLive.Users;
 
 namespace SeenLive.Api.Controllers
 {
     [Authorize]
-    [Route("api/bands")]
+    [Route("api/[controller]")]
     [ApiController]
-    
     public class BandsController
         : BaseController
     {
         private readonly IMediator _mediator;
 
-        public BandsController(IMediator mediator)
+        public BandsController(IMediator mediator, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+            : base(userManager, httpContextAccessor)
         {
             _mediator = mediator;
         }
@@ -48,9 +50,9 @@ namespace SeenLive.Api.Controllers
         public async Task<ActionResult<BandViewModel>> FindById([FromRoute] GetBandByIdQuery query)
         {
             var response = await _mediator.Send(query);
-            
-            return response.Success 
-                ? Ok(response) 
+
+            return response.Success
+                ? Ok(response)
                 : ProcessError(response.Error!);
         }
 
@@ -82,8 +84,8 @@ namespace SeenLive.Api.Controllers
 
             var response = await _mediator.Send(body);
 
-            return response.Success 
-                ? CreatedAtAction(nameof(FindById), new GetBandByIdQuery { Id = response.Data.Id }, response.Data) 
+            return response.Success
+                ? CreatedAtAction(nameof(FindById), new GetBandByIdQuery { Id = response.Data.Id }, response.Data)
                 : ProcessError(response.Error!);
         }
 
@@ -97,12 +99,13 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(command);
 
-            return response.Success 
-                ? NoContent() 
+            return response.Success
+                ? NoContent()
                 : ProcessError(response.Error!);
         }
 
-        [HttpGet("{Id}/Events")]
+        // GET api/bands/5/events
+        [HttpGet("{Id}/events")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -111,8 +114,8 @@ namespace SeenLive.Api.Controllers
         {
             var response = await _mediator.Send(query);
 
-            return response.Success 
-                ? Ok(response) 
+            return response.Success
+                ? Ok(response)
                 : ProcessError(response.Error!);
         }
     }
