@@ -11,7 +11,12 @@ public class BaseController
 {
     public BaseController(UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
     {
-        AuthenticatedUser = userManager.FindByNameAsync(httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+        var userName = httpContextAccessor.HttpContext?.User.Identity?.Name;
+        
+        if (userName != null)
+        {
+            AuthenticatedUser = userManager.FindByNameAsync(userName).Result;
+        } 
     }
 
     public User? AuthenticatedUser { get; }

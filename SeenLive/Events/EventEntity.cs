@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace SeenLive.Events
 {
@@ -18,6 +19,13 @@ namespace SeenLive.Events
         public ICollection<BandEntity>? Bands { get; set; }
 
         public EventViewModel ToViewModel()
-            => new() { Id = Id, Name = Name, Date = Date, EventType = EventType.ToString()};
+            => new()
+            {
+                Id = Id, 
+                Name = Name, 
+                Date = Date, 
+                EventType = EventType.ToString(),
+                BandNames = Bands?.Select(b => b.Name).ToArray()
+            };
     }
 }

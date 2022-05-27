@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SeenLive.Events;
+using SeenLive.Events.AssignBands;
 using SeenLive.Events.Create;
 using SeenLive.Events.GetAll;
 using SeenLive.Events.GetById;
@@ -23,7 +24,6 @@ public class EventsController
         : base(userManager, httpContextAccessor)
             => _mediator = mediator;
     
-
     // GET: api/events
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -60,5 +60,21 @@ public class EventsController
     {
         var response = await _mediator.Send(body);
         return CreatedAtAction(nameof(FindById), new GetEventByIdQuery { Id = response.Data.Id }, response.Data);
+    }
+    
+    //// PUT api/events/5/assign_bands
+    [HttpPut("{id}/assign_bands")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<EventViewModel>> AssignBandsToEvent([FromRoute] int id, [FromBody] AssignBandsCommand body)
+    {
+        body.EventId = id;
+        
+        var response = await _mediator.Send(body);
+        return response.Success
+            ? CreatedAtAction(nameof(FindById), new GetEventByIdQuery() { Id = response.Data.Id }, response.Data)
+            : ProcessError(response.Error!);
     }
 }

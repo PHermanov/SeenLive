@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Identity;
 
 namespace SeenLive.Users

@@ -13,8 +13,7 @@ namespace SeenLive.Events.Create
 
         public CreateEventCommandHandler(AppDbContext context)
             => _context = context;
-
-
+        
         public async Task<IHandlerResult<EventViewModel>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
             var createdEvent = await _context.Events.AddAsync(request.ToEntity(), cancellationToken);

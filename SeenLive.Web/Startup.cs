@@ -32,11 +32,9 @@ namespace SeenLive.Api
         {
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
-
-            // Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SeenLiveDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
-
+            
             services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration["DefaultConnectionString"],
+                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                         m => m.MigrationsAssembly("SeenLive.Api")));
 
             // For Identity  
@@ -99,7 +97,7 @@ namespace SeenLive.Api
                 });
             });
 
-            services.AddMediatR(Assembly.GetAssembly(typeof(HandlerBase)));
+            services.AddMediatR(Assembly.GetAssembly(typeof(HandlerBase))!);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
