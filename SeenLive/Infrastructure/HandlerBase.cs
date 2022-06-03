@@ -19,6 +19,9 @@ namespace SeenLive.Infrastructure
         protected static IHandlerResult<TData> BadRequest<TData>(string message)
             => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.BadRequest } };
 
+        protected static IHandlerResult<TData> ValidationError<TData>(string message, string field)
+            => new ErrorResult<TData> { Error = new Error { Message = message, Field = field, Type = ErrorType.Validation } };
+        
         protected static IHandlerResult<TData> InternalError<TData>(string message)
             => new ErrorResult<TData> { Error = new Error { Message = message, Type = ErrorType.InternalError } };
     }

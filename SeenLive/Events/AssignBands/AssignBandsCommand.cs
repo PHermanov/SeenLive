@@ -7,6 +7,5 @@ public class AssignBandsCommand
     : IRequest<IHandlerResult<EventViewModel>>
 {
     public int EventId { get; set; }
-    
-    public int[] BandIds { get; init; }
+    public AssignBandsBody Body { get; set; } = new ();
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SeenLive.Bands;
 using SeenLive.Events;
+using SeenLive.Locations;
 using SeenLive.Users;
 using SeenLive.Visits;
 
@@ -10,11 +11,15 @@ namespace SeenLive.EfCore.Contexts
     public class AppDbContext
         : IdentityDbContext<User>
     {
+        public DbSet<CountryEntity> Countries => Set<CountryEntity>();
+        public DbSet<CityEntity> Cities => Set<CityEntity>();
+        public DbSet<LocationEntity> Locations => Set<LocationEntity>();
         public DbSet<BandEntity> Bands => Set<BandEntity>();
         public DbSet<EventEntity> Events => Set<EventEntity>();
-        public new DbSet<User> Users  => Set<User>();
-        public new DbSet<VisitEntity> Visits => Set<VisitEntity>();
-        public AppDbContext(DbContextOptions<AppDbContext> options) 
+        public new DbSet<User> Users => Set<User>();
+        public DbSet<VisitEntity> Visits => Set<VisitEntity>();
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
@@ -22,10 +27,12 @@ namespace SeenLive.EfCore.Contexts
         public AppDbContext()
         {
         }
-        
-        protected override void OnModelCreating(ModelBuilder builder)  
-        {  
-            base.OnModelCreating(builder);  
-        } 
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            
+            builder.SeedLocationsData();
+        }
     }
 }

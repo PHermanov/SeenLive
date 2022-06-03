@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SeenLive.Bands;
 using SeenLive.EfCore.Contexts;
 using SeenLive.Infrastructure;
@@ -18,24 +20,32 @@ public class AssignBandsCommandHandler
 
     public async Task<IHandlerResult<EventViewModel>> Handle(AssignBandsCommand request, CancellationToken cancellationToken)
     {
-        var foundEvent = await _context.Events.FindAsync(request.EventId);
-        
+        var foundEvent = await _context.Events
+            .Include(e => e.Bands)
+            .FirstOrDefaultAsync(e => e.Id == request.EventId, cancellationToken);
+
         if(foundEvent == null)
             return NotFound<EventViewModel>("Event was not found");
 
-        var bandsToAttach = new List<BandEntity>();
-        foreach (var bandId in request.BandIds)
+        foundEvent.Bands ??= new List<BandEntity>();
+
+        foreach (var bandToRemove in foundEvent.Bands
+                     .Where(b => !request.Body.BandIds.Contains(b.Id)))
         {
-            var band = await _context.Bands.FindAsync(bandId);
+            foundEvent.Bands.Remove(bandToRemove);
+        }
+        
+        foreach (var bandId in request.Body.BandIds)
+        {
+            var band = await _context.Bands.FindAsync(new object?[] { bandId }, cancellationToken);
             
             if(band == null)
                 return NotFound<EventViewModel>($"Band with id: {bandId} was not found");
-            
-            bandsToAttach.Add(band);
+
+            if (!foundEvent.Bands.Contains(band))
+                foundEvent.Bands.Add(band);
         }
-        
-        foundEvent.Bands = bandsToAttach;
-        
+
         await _context.SaveChangesAsync(cancellationToken);
 
         return Data(foundEvent.ToViewModel());

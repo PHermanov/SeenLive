@@ -23,9 +23,7 @@ namespace SeenLive.Bands.Delete
                 .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
             
             if (band == null)
-            {
                 return NotFound<Unit>("Band was not found");
-            }
 
             _context.Bands.Remove(band);
             await _context.SaveChangesAsync(cancellationToken);

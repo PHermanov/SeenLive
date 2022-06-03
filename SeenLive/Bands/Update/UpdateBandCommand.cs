@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SeenLive.Bands.CreateOrUpdate;
 using SeenLive.Infrastructure;
 
 namespace SeenLive.Bands.Update
@@ -6,11 +7,16 @@ namespace SeenLive.Bands.Update
    public class UpdateBandCommand 
        : IRequest<IHandlerResult<BandViewModel>>
     {
-        public int Id { get; set; }
-        public string Name { get; init; } = string.Empty;
-        public string? AlternativeNames { get; init; }
-        public string? Info { get; init; }
+        public int Id { get; init; }
 
-        public BandEntity ToEntity() => new() { Id = Id, Name = Name.Trim(), AlternativeNames = AlternativeNames, Info = Info };
+        public CreateOrUpdateBandBody Body { get; init; } = new();
+
+        public BandEntity ToEntity() => new()
+        {
+            Id = Id, 
+            Name = Body.Name.Trim(), 
+            AlternativeNames = Body.AlternativeNames, 
+            Info = Body.Info
+        };
     }
 }

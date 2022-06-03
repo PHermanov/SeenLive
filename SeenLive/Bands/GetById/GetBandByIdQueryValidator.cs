@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace SeenLive.Bands.GetById
+namespace SeenLive.Bands.GetById;
+
+public class GetBandByIdQueryValidator : AbstractValidator<GetBandByIdQuery>
 {
-    public class GetBandByIdQueryValidator : AbstractValidator<GetBandByIdQuery>
+    public GetBandByIdQueryValidator()
     {
-        public GetBandByIdQueryValidator()
-        {
-            RuleFor(b => b.Id).GreaterThan(0).WithMessage("Id should be greater then 0");
-        }
+        RuleFor(b => b.Id).GreaterThan(0).WithMessage("Id should be greater then 0");
     }
 }

@@ -15,7 +15,7 @@ namespace SeenLive.Events.GetById
 
         public async Task<IHandlerResult<EventViewModel>> Handle(GetEventByIdQuery request, CancellationToken cancellationToken)
         {
-            var foundEvent = await _context.Events.FindAsync(request.Id);
+            var foundEvent = await _context.Events.FindAsync(new object?[] { request.Id }, cancellationToken);
 
             return foundEvent switch
             {

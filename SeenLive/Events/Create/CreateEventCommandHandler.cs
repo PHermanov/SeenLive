@@ -16,7 +16,15 @@ namespace SeenLive.Events.Create
         
         public async Task<IHandlerResult<EventViewModel>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            var createdEvent = await _context.Events.AddAsync(request.ToEntity(), cancellationToken);
+            var entity = request.ToEntity();
+            
+            var foundLocation = await _context.Locations.FindAsync(new object?[] { request.LocationId }, cancellationToken);
+            
+            if(foundLocation == null)
+                return ValidationError<EventViewModel>("Location not found", nameof(EventEntity.Location));
+            
+            entity.Location = foundLocation;
+            var createdEvent = await _context.Events.AddAsync(entity, cancellationToken);
 
             await _context.SaveChangesAsync(cancellationToken);
 

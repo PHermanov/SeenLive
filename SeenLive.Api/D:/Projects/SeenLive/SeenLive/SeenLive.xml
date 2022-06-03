@@ -4,7 +4,7 @@
         <name>SeenLive.Api</name>
     </assembly>
     <members>
-        <member name="M:SeenLive.Api.Controllers.BandsController.PostAsync(SeenLive.Bands.Create.CreateBandCommand)">
+        <member name="M:SeenLive.Api.Controllers.BandsController.PostAsync(SeenLive.Bands.CreateOrUpdate.CreateOrUpdateBandBody)">
             <summary>
             Creates new Band
             </summary>

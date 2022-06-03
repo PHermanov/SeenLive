@@ -19,5 +19,8 @@ namespace SeenLive.Events
         
         [JsonPropertyName("bands")]
         public string[]? BandNames { get; init; } = Array.Empty<string>();
+        
+        [JsonPropertyName("location")]
+        public string Location { get; init; } = string.Empty;
     }
 }

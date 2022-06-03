@@ -3,6 +3,7 @@
     public class Error
     {
         public string Message { get; init; } = string.Empty;
+        public string Field { get; init; } = string.Empty;
         public ErrorType Type { get; init; } = ErrorType.Undefined;
     }
 
@@ -12,6 +13,7 @@
         NotFound,
         Unauthorized,
         BadRequest,
-        InternalError
+        InternalError,
+        Validation
     }
 }

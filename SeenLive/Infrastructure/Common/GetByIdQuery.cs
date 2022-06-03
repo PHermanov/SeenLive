@@ -1,7 +1,6 @@
-namespace SeenLive.Infrastructure.Common
+namespace SeenLive.Infrastructure.Common;
+
+public class GetByIdQuery
 {
-    public class GetByIdQuery
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; init; }
 }

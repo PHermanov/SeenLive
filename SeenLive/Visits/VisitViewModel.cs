@@ -8,10 +8,13 @@ public class VisitViewModel
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
+    
     [JsonPropertyName("userId")]
-    public string UserId { get; set; }
-    [JsonPropertyName("event")]
-    public EventViewModel Event { get; set; }
+    public string UserId { get; init; } = string.Empty;
+
+    [JsonPropertyName("event")] 
+    public EventViewModel Event { get; init; } = new();
+    
     [JsonPropertyName("seenBandsIds")]
-    public int[] SeenBandsIds { get; set; } = Array.Empty<int>();
+    public int[] SeenBandsIds { get; init; } = Array.Empty<int>();
 }
