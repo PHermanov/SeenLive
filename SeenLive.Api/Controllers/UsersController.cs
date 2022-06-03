@@ -28,7 +28,7 @@ public class AuthenticateController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> Login([FromBody] LoginCommand command)
     {
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, HttpContext.RequestAborted);
 
         return response.Success
             ? Ok(response)
@@ -42,7 +42,7 @@ public class AuthenticateController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] CreateUserCommand command)
     {
-        var response = await _mediator.Send(command);
+        var response = await _mediator.Send(command, HttpContext.RequestAborted);
 
         return response.Success
             ? Ok(response)

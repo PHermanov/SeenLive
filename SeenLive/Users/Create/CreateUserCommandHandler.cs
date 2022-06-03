@@ -40,7 +40,7 @@ internal class CreateUserCommandHandler
 
         return result.Succeeded
             ? Data("User created successfully!")
-            : BadRequest<string>(result.Errors.FirstOrDefault()?.Description ?? "Internal Server Error");
+            : InternalError<string>(result.Errors.FirstOrDefault()?.Description ?? "Internal Server Error");
     }
 }
 

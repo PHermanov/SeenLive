@@ -23,14 +23,14 @@ public class VisitsController
             => _mediator = mediator;
     
     // GET api/visits/5
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<VisitViewModel>> GetById([FromRoute] GetVisitByIdQuery query)
     {
-        var response = await _mediator.Send(query);
+        var response = await _mediator.Send(query, HttpContext.RequestAborted);
         
         return response.Success
             ? Ok(response)

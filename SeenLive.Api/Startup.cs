@@ -33,12 +33,13 @@ namespace SeenLive.Api
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
             
+            // Database
             services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                         m => m.MigrationsAssembly("SeenLive.Api"))
                         .EnableSensitiveDataLogging());
 
-            // For Identity  
+            // Identity  
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();

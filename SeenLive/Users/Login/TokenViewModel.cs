@@ -6,7 +6,7 @@ namespace SeenLive.Users.Login
     public class TokenViewModel 
     {
         [JsonPropertyName("token")]
-        public string Token { get; set; } = string.Empty;
+        public string Token { get; init; } = string.Empty;
 
         [JsonPropertyName("expiration")]
         public DateTime Expiration { get; set; }

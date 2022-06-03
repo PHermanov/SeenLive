@@ -38,7 +38,7 @@ namespace SeenLive.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<IEnumerable<BandViewModel>>> GetAllAsync()
         {
-            var response = await _mediator.Send(new GetAllBandsQuery());
+            var response = await _mediator.Send(new GetAllBandsQuery(), HttpContext.RequestAborted);
             return Ok(response);
         }
 
@@ -50,7 +50,7 @@ namespace SeenLive.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<BandViewModel>> FindById([FromRoute] GetBandByIdQuery query)
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(query, HttpContext.RequestAborted);
 
             return response.Success
                 ? Ok(response)
@@ -58,11 +58,6 @@ namespace SeenLive.Api.Controllers
         }
 
         // POST api/bands
-        /// <summary>
-        /// Creates new Band
-        /// </summary>
-        /// <param name="body">JSON with data</param>
-        /// <returns>HTTP Status</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,7 +65,7 @@ namespace SeenLive.Api.Controllers
         public async Task<ActionResult<BandViewModel>> PostAsync([FromBody] CreateOrUpdateBandBody body)
         {
             var createCommand = new CreateBandCommand {Body = body};
-            var response = await _mediator.Send(createCommand);
+            var response = await _mediator.Send(createCommand, HttpContext.RequestAborted);
             return CreatedAtAction(nameof(FindById), new GetBandByIdQuery {Id = response.Data.Id}, response.Data);
         }
 
@@ -84,7 +79,7 @@ namespace SeenLive.Api.Controllers
             [FromBody] CreateOrUpdateBandBody body)
         {
             var updateCommand = new UpdateBandCommand {Id = id, Body = body};
-            var response = await _mediator.Send(updateCommand);
+            var response = await _mediator.Send(updateCommand, HttpContext.RequestAborted);
 
             return response.Success
                 ? AcceptedAtAction(nameof(FindById), new GetBandByIdQuery {Id = response.Data.Id}, response.Data)
@@ -97,9 +92,9 @@ namespace SeenLive.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+        public async Task<ActionResult> DeleteAsync([FromRoute] DeleteBandCommand command)
         {
-            var response = await _mediator.Send(new DeleteBandCommand {Id = id});
+            var response = await _mediator.Send(command, HttpContext.RequestAborted);
 
             return response.Success
                 ? NoContent()
@@ -113,9 +108,9 @@ namespace SeenLive.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<EventViewModel>>> GetBandEvents(
-            [FromRoute] int id)
+            [FromRoute] GetEventByBandIdQuery query)
         {
-            var response = await _mediator.Send(new GetEventByBandIdQuery {Id = id});
+            var response = await _mediator.Send(query, HttpContext.RequestAborted);
 
             return response.Success
                 ? Ok(response)

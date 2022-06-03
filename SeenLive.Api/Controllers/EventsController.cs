@@ -10,6 +10,7 @@ using SeenLive.Events.AssignBands;
 using SeenLive.Events.Create;
 using SeenLive.Events.GetAll;
 using SeenLive.Events.GetById;
+using SeenLive.Infrastructure;
 using SeenLive.Users;
 
 namespace SeenLive.Api.Controllers;
@@ -32,7 +33,7 @@ public class EventsController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IEnumerable<EventViewModel>>> GetAllAsync()
     {
-        var response = await _mediator.Send(new GetAllEventsQuery());
+        var response = await _mediator.Send(new GetAllEventsQuery(), HttpContext.RequestAborted);
         return Ok(response);
     }
 
@@ -42,9 +43,9 @@ public class EventsController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<EventViewModel>> FindById([FromRoute] int id)
+    public async Task<ActionResult<EventViewModel>> FindById([FromRoute] GetEventByIdQuery query)
     {
-        var response = await _mediator.Send(new GetEventByIdQuery {Id = id});
+        var response = await _mediator.Send(query, HttpContext.RequestAborted);
 
         return response.Success
             ? Ok(response)
@@ -63,7 +64,7 @@ public class EventsController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<EventViewModel>> PostAsync([FromBody] CreateEventCommand body)
     {
-        var response = await _mediator.Send(body);
+        var response = await _mediator.Send(body, HttpContext.RequestAborted);
         return response.Success
             ? CreatedAtAction(nameof(FindById), new GetEventByIdQuery {Id = response.Data.Id}, response.Data)
             : ProcessError(response.Error!);
@@ -71,7 +72,7 @@ public class EventsController
 
     //// PUT api/events/5/assign_bands
     [HttpPut("{id:int}/assign_bands")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -79,13 +80,17 @@ public class EventsController
         [FromBody] AssignBandsBody body)
     {
         if (id <= 0)
-            return BadRequest("EventId must be greater than 0");
+            return ProcessError(new Error
+            {
+                Message = "EventId must be greater than 0", Field = nameof(AssignBandsCommand.EventId),
+                Type = ErrorType.Validation
+            });
 
         var assignBandsCommand = new AssignBandsCommand {EventId = id, Body = body};
 
-        var response = await _mediator.Send(assignBandsCommand);
+        var response = await _mediator.Send(assignBandsCommand, HttpContext.RequestAborted);
         return response.Success
-            ? CreatedAtAction(nameof(FindById), new GetEventByIdQuery {Id = response.Data.Id}, response.Data)
+            ? AcceptedAtAction(nameof(FindById), new GetEventByIdQuery {Id = response.Data.Id}, response.Data)
             : ProcessError(response.Error!);
     }
 }
