@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SeenLive.Bands;
+using SeenLive.EfCore.Seeders;
 using SeenLive.Events;
 using SeenLive.Locations;
 using SeenLive.Users;
@@ -33,6 +34,8 @@ namespace SeenLive.EfCore.Contexts
             base.OnModelCreating(builder);
             
             builder.SeedLocationsData();
+            builder.SeedBandsData();
+            builder.SeedEventsData();
         }
     }
 }

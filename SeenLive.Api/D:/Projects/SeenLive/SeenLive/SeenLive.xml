@@ -4,13 +4,6 @@
         <name>SeenLive.Api</name>
     </assembly>
     <members>
-        <member name="M:SeenLive.Api.Controllers.BandsController.PostAsync(SeenLive.Bands.CreateOrUpdate.CreateOrUpdateBandBody)">
-            <summary>
-            Creates new Band
-            </summary>
-            <param name="body">JSON with data</param>
-            <returns>HTTP Status</returns>
-        </member>
         <member name="M:SeenLive.Api.Controllers.EventsController.PostAsync(SeenLive.Events.Create.CreateEventCommand)">
             <summary>
             Creates new Event

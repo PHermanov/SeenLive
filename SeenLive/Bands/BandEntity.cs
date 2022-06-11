@@ -6,11 +6,12 @@ namespace SeenLive.Bands
 {
     public class BandEntity
     {
+        [Key]
         public int Id { get; init; }
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(100)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; init; } = string.Empty;
         public string? AlternativeNames { get; set; }
         public string? Info { get; set; }
         public ICollection<EventEntity>? Events { get; set; }
