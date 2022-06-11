@@ -85,7 +85,7 @@ namespace SeenLive.Api.Migrations
                 columns: new[] { "Id", "Date", "EventType", "Info", "LocationId", "Name" },
                 values: new object[] { 1, new DateTime(2014, 8, 8, 0, 0, 0, 0, DateTimeKind.Utc), (byte)1, null, 5, "Zaxidfest 2014" });
 
-            migrationBuilder.Sql(File.ReadAllText(Path.Combine("Migrations", "SeedZaxidfest2014.sql")));
+            migrationBuilder.Sql(File.ReadAllText(Path.Combine("..","SeenLive", "EfCore", "Seeders", "SeedZaxidfest2014.sql")));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -370,7 +370,7 @@ namespace SeenLive.Api.Migrations
                 keyColumn: "Id",
                 keyValue: 6);
             
-            migrationBuilder.Sql(File.ReadAllText(Path.Combine("Migrations", "RemoveSeedZaxidfest2014.sql")));
+            migrationBuilder.Sql(File.ReadAllText(Path.Combine("..","SeenLive", "EfCore", "Seeders","RemoveSeedZaxidfest2014.sql")));
         }
     }
 }
