@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace SeenLive.Bands.Delete
+namespace SeenLive.Bands.Delete;
+
+public class DeleteBandCommandValidator : AbstractValidator<DeleteBandCommand>
 {
-    public class DeleteBandCommandValidator : AbstractValidator<DeleteBandCommand>
+    public DeleteBandCommandValidator()
     {
-        public DeleteBandCommandValidator()
-        {
-            RuleFor(b => b.Id).GreaterThan(0).WithMessage("Id should be greater then 0");
-        }
+        RuleFor(b => b.Id).GreaterThan(0).WithMessage("Id should be greater then 0");
     }
 }

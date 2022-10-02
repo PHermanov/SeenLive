@@ -1,12 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SeenLive.Infrastructure
-{
-    public class SuccessResult<TData> : IHandlerResult<TData>
-    {
-        public TData Data { get; init; } = default!;
+namespace SeenLive.Infrastructure;
 
-        [JsonIgnore]
-        public Error? Error => default;
-    }
+public class SuccessResult<TData> : IHandlerResult<TData>
+{
+    public TData Data { get; init; } = default!;
+
+    [JsonIgnore]
+    public Error? Error => default;
 }

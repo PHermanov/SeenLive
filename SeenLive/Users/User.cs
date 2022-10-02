@@ -1,10 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace SeenLive.Users
+namespace SeenLive.Users;
+
+public class User : IdentityUser
 {
-    public class User : IdentityUser
-    {
         
-    }
 }

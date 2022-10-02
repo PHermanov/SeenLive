@@ -7,35 +7,34 @@ using SeenLive.Locations;
 using SeenLive.Users;
 using SeenLive.Visits;
 
-namespace SeenLive.EfCore.Contexts
+namespace SeenLive.EfCore.Contexts;
+
+public class AppDbContext
+    : IdentityDbContext<User>
 {
-    public class AppDbContext
-        : IdentityDbContext<User>
+    public DbSet<CountryEntity> Countries => Set<CountryEntity>();
+    public DbSet<CityEntity> Cities => Set<CityEntity>();
+    public DbSet<LocationEntity> Locations => Set<LocationEntity>();
+    public DbSet<BandEntity> Bands => Set<BandEntity>();
+    public DbSet<EventEntity> Events => Set<EventEntity>();
+    public new DbSet<User> Users => Set<User>();
+    public DbSet<VisitEntity> Visits => Set<VisitEntity>();
+
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-        public DbSet<CountryEntity> Countries => Set<CountryEntity>();
-        public DbSet<CityEntity> Cities => Set<CityEntity>();
-        public DbSet<LocationEntity> Locations => Set<LocationEntity>();
-        public DbSet<BandEntity> Bands => Set<BandEntity>();
-        public DbSet<EventEntity> Events => Set<EventEntity>();
-        public new DbSet<User> Users => Set<User>();
-        public DbSet<VisitEntity> Visits => Set<VisitEntity>();
+    }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
-        {
-        }
+    public AppDbContext()
+    {
+    }
 
-        public AppDbContext()
-        {
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
             
-            builder.SeedLocationsData();
-            builder.SeedBandsData();
-            builder.SeedEventsData();
-        }
+        builder.SeedLocationsData();
+        builder.SeedBandsData();
+        builder.SeedEventsData();
     }
 }
