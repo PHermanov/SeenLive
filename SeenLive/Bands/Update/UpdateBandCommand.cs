@@ -2,21 +2,20 @@
 using SeenLive.Bands.CreateOrUpdate;
 using SeenLive.Infrastructure;
 
-namespace SeenLive.Bands.Update
+namespace SeenLive.Bands.Update;
+
+public class UpdateBandCommand 
+    : IRequest<IHandlerResult<BandViewModel>>
 {
-   public class UpdateBandCommand 
-       : IRequest<IHandlerResult<BandViewModel>>
+    public int Id { get; init; }
+
+    public CreateOrUpdateBandBody Body { get; init; } = new();
+
+    public BandEntity ToEntity() => new()
     {
-        public int Id { get; init; }
-
-        public CreateOrUpdateBandBody Body { get; init; } = new();
-
-        public BandEntity ToEntity() => new()
-        {
-            Id = Id, 
-            Name = Body.Name.Trim(), 
-            AlternativeNames = Body.AlternativeNames, 
-            Info = Body.Info
-        };
-    }
+        Id = Id, 
+        Name = Body.Name.Trim(), 
+        AlternativeNames = Body.AlternativeNames, 
+        Info = Body.Info
+    };
 }

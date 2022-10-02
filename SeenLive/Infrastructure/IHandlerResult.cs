@@ -1,10 +1,9 @@
-﻿namespace SeenLive.Infrastructure
-{
-    public interface IHandlerResult<out TData> 
-      {
-        TData Data { get; }
-        Error? Error { get; }
+﻿namespace SeenLive.Infrastructure;
 
-        bool Success => Error == null;
-    }
+public interface IHandlerResult<out TData> 
+{
+    TData Data { get; }
+    Error? Error { get; }
+
+    bool Success => Error == null;
 }
