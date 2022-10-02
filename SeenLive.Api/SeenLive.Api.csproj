@@ -7,11 +7,7 @@
     <AssemblyName>SeenLive.Api</AssemblyName>
     <RootNamespace>SeenLive.Api</RootNamespace>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Projects\SeenLive\SeenLive\SeenLive.xml</DocumentationFile>
-  </PropertyGroup>
-
+  
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
