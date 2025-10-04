@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,8 +29,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers()
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<HandlerBase>());
+        services.AddControllers();
             
         // Database
         services.AddDbContext<AppDbContext>(options =>
@@ -99,7 +97,11 @@ public class Startup
             });
         });
 
-        services.AddMediatR(Assembly.GetAssembly(typeof(HandlerBase))!);
+        services.AddMediatR(conf =>
+        {
+            conf.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            //conf.LicenseKey = builder.Configuration["MediatrLicense"];
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
